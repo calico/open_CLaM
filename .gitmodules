@@ -1,3 +1,9 @@
 [submodule "maven"]
 	path = maven
 	url = https://github.com/eugenemel/maven
+[submodule "clamr"]
+	path = clamr
+	url = git@github.com:calico/clamr.git
+[submodule "clamqc"]
+	path = clamqc
+	url = git@github.com:calico/clamqc.git
