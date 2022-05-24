@@ -1,5 +1,5 @@
 # open_CLaM
-open-source version of mass_spec
+open-source version of **C**alico **L**ipidomics **a**nd **M**etabolomics pipeline and data analysis tools.
 
 # Description
 
