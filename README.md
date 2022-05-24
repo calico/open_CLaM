@@ -8,7 +8,7 @@ The code can be accessed via linked sub-repositories.
 
 # Pipeline Installation
 
-to run open_CLaM as a fully functional pipeline, all of the component pieces should be installed and configured properly.
+to run `open_CLaM` as a fully functional pipeline, all of the component pieces should be installed and configured properly.
 
 1. Clone this repository
 The easiest way to get everything to work is to clone this entire repository to your computer.
@@ -20,8 +20,8 @@ the complete directory locally.
 
 2. C++ executables
 `open_CLaM` depends on several executables written in C++ using the Qt framework.
-These executables may be downloaded in finished form the [MAVEN Releases Page]().
-They may also be built [from source](), if desired.
+These executables may be downloaded in finished form the [MAVEN Releases Page](https://github.com/eugenemel/maven/releases/latest).
+They may also be built [from source](https://github.com/eugenemel/maven), if desired.
 
 Once these executables have been obtained or built, please deposit them in the `executables`
 sub-folder of your local copy of the `open_CLaM` pipeline.
