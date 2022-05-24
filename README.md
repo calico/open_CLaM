@@ -1,5 +1,5 @@
 # open_CLaM
-open-source version of **C**alico **L**ipidomics **a**nd **M**etabolomics pipeline and data analysis tools.
+open-source version of <ins>**C**</ins>alico <ins>**L**</ins>ipidomics <ins>**a**</ins>nd <ins>**M**</ins>etabolomics pipeline and data analysis tools.
 
 # Description
 
