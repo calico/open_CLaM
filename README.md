@@ -57,3 +57,26 @@ Please follow the installation instructions associated with each repo.
 Note that these R packages will likely require installation additional CRAN dependencies.
 Note that `clamr` is a required dependency of `clamdb`, `clamqc`, and `quahog`, and so
 should be installed first.
+
+R packages can be installed by either (1) following the installation instructions described
+in each repository, running (2) `R CMD INSTALL` for each package, e.g.
+```
+cd <open_CLaM_dir>
+R CMD INSTALL clamr
+R CMD INSTALL clamdb
+R CMD INSTALL clamqc
+R CMD INSTALL quahog
+```
+Or, (3) by building each package from source in the R studio console, e.g.
+```
+install.packages("<open_CLaM_dir>/clamr", repos=NULL, type ="source")
+install.packages("<open_CLaM_dir>/clamdb", repos=NULL, type ="source")
+install.packages("<open_CLaM_dir>/clamqc", repos=NULL, type ="source")
+install.packages("<open_CLaM_dir>/quahog", repos=NULL, type ="source")
+```
+
+# Pipeline execution
+The pipeline should be executed using the associated python scripts included
+in this repository.  Python 3 is required.
+
+Please follow the steps in the [open_CLaM_pipeline_example]() for a detailed tutorial.
