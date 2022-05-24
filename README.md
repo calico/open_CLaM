@@ -79,4 +79,4 @@ install.packages("<open_CLaM_dir>/quahog", repos=NULL, type ="source")
 The pipeline should be executed using the associated python scripts included
 in this repository.  Python 3 is required.
 
-Please follow the steps in the [open_CLaM_pipeline_example]() for a detailed tutorial.
+Please follow the steps in the [open_CLaM_pipeline_example](https://github.com/calico/open_CLaM/tree/main/open_CLaM_example) for a detailed tutorial.
