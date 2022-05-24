@@ -31,7 +31,7 @@ git clone --recurse-submodules -j8 https://github.com/calico/open_CLaM.git
 `open_CLaM` depends on several executables written in C++ using the Qt framework.
 These may be built [from source](https://github.com/eugenemel/maven).  If you have
 successfully cloned this entire repository and all subrepositories, the source files necessary to create these executables will be downloaded to your computer.
-In order to build these executables, you will need to download and install `Qt` and `llvm`.
+In order to build these executables, you will need to download and install `Qt`, `llvm`, and `boost`.
 Specifically, this project calls for the `qmake` tool within `Qt`.
 Installing and configuring `qmake` and `llvm` is the most difficult part of this installation.
 Check out the [Qt website](https://www.qt.io/download) and [llvm website](https://llvm.org/) for helpful tips.
