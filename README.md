@@ -37,7 +37,7 @@ Installing and configuring `qmake` and `llvm` is the most difficult part of this
 Check out the [Qt website](https://www.qt.io/download) and [llvm website](https://llvm.org/) for helpful tips.
 Once you have these installed, you may carry out the following commands:
 ```
-cd <open_CLaM_dir>/maven
+cd <open_CLaM_dir>/open_CLaM/maven
 qmake build_no_gui.pro
 make -Bj16
 ```
@@ -61,7 +61,7 @@ should be installed first.
 R packages can be installed by either (1) following the installation instructions described
 in each repository, running (2) `R CMD INSTALL` for each package, e.g.
 ```
-cd <open_CLaM_dir>
+cd <open_CLaM_dir>/open_CLaM
 R CMD INSTALL clamr
 R CMD INSTALL clamdb
 R CMD INSTALL clamqc
