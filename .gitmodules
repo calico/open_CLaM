@@ -10,3 +10,6 @@
 [submodule "clamdb"]
 	path = clamdb
 	url = https://github.com/calico/clamdb
+[submodule "quahog"]
+	path = quahog
+	url = https://github.com/calico/quahog
