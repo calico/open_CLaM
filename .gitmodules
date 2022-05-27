@@ -7,3 +7,6 @@
 [submodule "clamqc"]
 	path = clamqc
 	url = git@github.com:calico/clamqc.git
+[submodule "clamdb"]
+	path = clamdb
+	url = https://github.com/calico/clamdb
