@@ -490,7 +490,7 @@ def run_mzdeltas(module_dict, settings):
 
 def create_success_file(pipeline_status_dict, settings):
     
-    success_file = settings.program_settings['output_folder'] + "/success.txt"
+    success_file = settings.run['output_folder'] + "/success.txt"
     start_time = settings.run['start_time']
     end_time = datetime.now()
     
@@ -533,18 +533,6 @@ def create_success_file(pipeline_status_dict, settings):
 
     f.write("\r\n")
     f.write("\r\n")
-    f.write("mzkit version information:\r\n")
-    f.write("number: ")
-    f.write(settings.run['version_dict']['version_num'])
-    f.write("\r\n")
-    f.write("name: ")
-    f.write(settings.run['version_dict']['version_name'])
-    f.write("\r\n")
-    f.write("date: ")
-    f.write(settings.run['version_dict']['version_date'])
-    f.write("\r\n")
-    f.write("commit hash: ")
-    f.write(settings.run['version_dict']['version_commit_hash'])
 
     f.close()
 
