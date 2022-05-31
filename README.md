@@ -38,7 +38,7 @@ Check out the [Qt website](https://www.qt.io/download) and [llvm website](https:
 Once you have these installed, you may carry out the following commands:
 ```
 cd <open_CLaM_dir>/open_CLaM/maven
-qmake build_no_gui.pro
+qmake -r build_no_gui.pro
 make -Bj16
 ```
 Where `<open_CLaM_dir>` is the directory where you have cloned the `open_CLaM` repository on your computer.
