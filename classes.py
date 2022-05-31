@@ -266,14 +266,14 @@ class MzkitConfig(object):
             return
 
         method_id = self.globals['methodId']
-        msp_files = settings.paths['library_path'] + "/*" + method_id + "*.msp"
+        msp_files = settings.program_settings['library_path'] + "/*" + method_id + "*.msp"
 
         files = glob.glob(msp_files)
 
         if len(files) >= 1:
             self.modules['peakdetector_mzkitchen_search']['parameters']['mzkitchenMspFile'] = files[0]
         else:
-            print("Library path: " + settings.paths['library_path'])
+            print("Library path: " + settings.program_settings['library_path'])
             print("msp files: " + msp_files)
             raise MspFileMissingException("No msp file found for methodId: '" + method_id + "'. Halting execution.")
         return
@@ -289,7 +289,7 @@ class MzkitSettings(object):
         the full .json configuration file
     args : argparse.Namespace
         command-line arguments passed to pipeline
-    paths : [str]
+    program_settings : [str]
         paths to data, outputs and code
     run : dict
         timing, version, and reportion options
@@ -311,19 +311,21 @@ class MzkitSettings(object):
         None.
         '''
 
-        #settings, unlikely to change between runs
-        settings_paths_schema = {
+        # program settings, unlikely to change between runs
+        settings_program_schema = {
             "+open_CLaM_path": "string",
             "+peakdetector_bin_path": "string",
             "+peakdetector_methods_path": "string",
             "+mzdeltas_bin_path": "string",
             "+RCMD": "string",
+            "r_scripts_path": "string"
             }
 
-        # run-specific parameters
+        # run-specific parameters (changes every run)
         settings_run_schema = {
             "+data_folder": "string",
             "+output_folder": "string",
+            "+configfile": "string",
             "+start_time": "datetime",
             "+verbose": "boolean"
             }
@@ -331,10 +333,10 @@ class MzkitSettings(object):
         required_args = [
             "data_folder",
             "output_folder",
-            "config_file"
+            "configfile"
             ]
         
-        setting_paths_validator = valideer.parse(settings_paths_schema)
+        settings_program_validator = valideer.parse(settings_program_schema)
         settings_run_validator = valideer.parse(settings_run_schema)
         
         # test args formatting
@@ -342,12 +344,15 @@ class MzkitSettings(object):
             raise ValueError('args is of type %s rather than argparse.Namespace' %type(args))
         
         args_dict = vars(args)
-        if not set(list(args_dict.keys())) == set(required_args):
+        if not set(required_args).issubset(set(list(args_dict.keys()))):
             raise ValueError("args are misconfigured")
         
         # setup data files        
         if not os.path.exists(args.data_folder):
-            raise ValueError('data_folder path %s does not exist' %args.data_folder)
+            raise ValueError('data_folder path %s does not exist' % args.data_folder)
+
+        if not os.path.exists(args.configfile):
+            raise ValueError('configfile path %s does not exist' % args.configfile)
         
         # sample files
         project_files = get_mz_files_list(args.data_folder)
@@ -359,27 +364,27 @@ class MzkitSettings(object):
          
         output_folder = initialize_output_folder(args)
 
-        # open_CLaM paths
-        r_scripts_path = "."
-        peakdetector_bin_path = "./maven/src/maven/bin"
-        mzdeltas_bin_path = "./maven/src/maven_core/bin"
-        peakdetector_methods_path = "./maven/src/maven_core/bin/methods/default.model"
+        # open_CLaM program paths (executables, script directories)
+        open_CLaM_path = os.path.abspath(".")
+        peakdetector_bin_path = os.path.abspath("./maven/src/maven/bin")
+        peakdetector_methods_path = os.path.abspath("./maven/src/maven_core/bin/methods/default.model")
+        mzdeltas_bin_path = os.path.abspath("./maven/src/maven_core/bin")
+        r_scripts_path = os.path.abspath(".")
 
         # setup code paths
-        settings_paths = {
-            "data_folder": args.data_folder,
-            "output_folder": output_folder,
-            "open_CLaM_path": os.path.abspath("."),
-            "peakdetector_methods_path": peakdetector_methods_path,
+        settings_program = {
+            "open_CLaM_path": open_CLaM_path,
             "peakdetector_bin_path": peakdetector_bin_path,
+            "peakdetector_methods_path": peakdetector_methods_path,
             "mzdeltas_bin_path": mzdeltas_bin_path,
             "RCMD": "Rscript",
-            "r_scripts_path" : r_scripts_path
+            "r_scripts_path": r_scripts_path
             }
         
         settings_run = {
             "data_folder": args.data_folder,
             "output_folder": output_folder,
+            "configfile": args.configfile,
             "start_time": datetime.now(),
             "verbose": args.verbose
             }
@@ -387,15 +392,9 @@ class MzkitSettings(object):
         self.project_files = project_files
         self.args = args
         self.mzrolldb_file = output_folder + "/peakdetector.mzrollDB"
-        self.paths = setting_paths_validator.validate(setting_paths)
-        self.run = settings_run_validator.validate(setting_run)
-        
-        # iterate through paths to ensure existence
-        for val in setting_paths.values():
-            if type(val) == str:
-                if not os.path.exists(val):
-                    raise ValueError('configuration path not found: %s' %val) 
-         
+        self.program_settings = settings_program_validator.validate(settings_program)
+        self.run = settings_run_validator.validate(settings_run)
+
         return
 
 

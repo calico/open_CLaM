@@ -18,25 +18,19 @@ class MspFileMissingException(Exception):
     pass
 
 
-def get_mz_files_list(project_folder, include_pattern=None, max_mod_hours=2):
-    time_now = time()
-
+def get_mz_files_list(project_folder):
     matched = []
 
     spectra_files = re.compile('\.[mzXML|mgf|mzML]', flags=re.I)
-    for root, subdirs, files in os.walk(project_folder):
-        for bname in files:
-            if include_pattern:
-                if not re.search(include_pattern, bname):
-                    continue
-
-            if re.search(spectra_files, bname):
-                matched.append(root + "/" + bname)
+    for root, sub_dirs, files in os.walk(project_folder):
+        for b_name in files:
+            if re.search(spectra_files, b_name):
+                matched.append(root + "/" + b_name)
 
     if len(matched) == 0:
         print("Could not find any spectra files in " + project_folder + "/")
 
-    print("# Found ", len(matched), "mass spec samples")
+    print("# Found ", len(matched), " mass spec samples")
     return matched
 
 
@@ -227,18 +221,18 @@ def run_module(module, module_dict, pipe, settings):
 
 def call_R_module(module, module_dict, settings):
 
-    output_path_argument = "output_folder={}".format(settings.paths['output_folder'])
+    output_path_argument = "output_folder={}".format(settings.program_settings['output_folder'])
     function_call_argument = "rwrapper={}".format(module)
-    r_scripts_path_argument = "r_scripts_path={}".format(settings.paths['r_scripts_path'])
+    r_scripts_path_argument = "r_scripts_path={}".format(settings.program_settings['r_scripts_path'])
 
     aux_r_params = []
     for par, val in module_dict['parameters'].items(): 
         aux_r_params.append(par + "=" + str(val))
     #print(aux_r_params)
 
-    cmd = [settings.paths['RCMD'], settings.paths['r_mzkit_path'],
-        output_path_argument, function_call_argument,
-        r_scripts_path_argument] + aux_r_params
+    cmd = [settings.program_settings['RCMD'], settings.program_settings['r_mzkit_path'],
+           output_path_argument, function_call_argument,
+           r_scripts_path_argument] + aux_r_params
            
     p = subprocess.Popen(" ".join(cmd),
                          stdout=subprocess.PIPE,
@@ -283,17 +277,17 @@ def call_bin_module(module, module_dict, pipe, settings):
 
 def run_peakdetector(peakdetector_input, module_dict, settings):
 
-    peakdetector_binary = settings.paths['peakdetector_bin_path'] + '/peakdetector'
+    peakdetector_binary = settings.program_settings['peakdetector_bin_path'] + '/peakdetector'
 
     # On Mac os x, executable is located inside the peakdetector.app folder
     if platform.system() == "Darwin" and not os.path.exists(peakdetector_binary):
-        peakdetector_binary = settings.paths['bin_path'] + "/peakdetector.app/Contents/MacOS/peakdetector"
+        peakdetector_binary = peakdetector_binary + "/peakdetector.app/Contents/MacOS/peakdetector"
 
     if not os.path.exists(peakdetector_binary):
-        raise ValueError('Can not find peakdetector binary: %s' %peakdetector_binary)
+        raise ValueError('Cannot find peakdetector binary: %s' %peakdetector_binary)
       
-    if not os.path.exists(settings.paths['peakdetector_methods_path']):
-        raise ValueError('Can not find peakdetector methods folder: %s' %settings.paths["peakdetector_methods_path"])
+    if not os.path.exists(settings.program_settings['peakdetector_methods_path']):
+        raise ValueError('Cannot find peakdetector methods folder: %s' % settings.program_settings["peakdetector_methods_path"])
 
     align_samples_flag = module_dict['parameters']['alignSamples']
     if peakdetector_input.endswith(".mzrollDB"):
@@ -375,8 +369,8 @@ def run_peakdetector(peakdetector_input, module_dict, settings):
                                      ".format(peakdetector_binary=peakdetector_binary,
                                               ms2=module_dict['parameters']['ms2'],
                                               minintensity=module_dict['parameters']['minintensity'],
-                                              peakdetector_methods_path=settings.paths['peakdetector_methods_path'],
-                                              reports_folder=settings.paths['output_folder'],
+                                              peakdetector_methods_path=settings.program_settings['peakdetector_methods_path'],
+                                              reports_folder=settings.program_settings['output_folder'],
                                               align_samples=align_samples_flag,
                                               mzSlice_rtStepSize=rtStepSize,
                                               mzSlice_precursorPPM=precursorPPM,
@@ -436,15 +430,15 @@ def run_peakdetector(peakdetector_input, module_dict, settings):
 
 def run_mzdeltas(module_dict, settings):
     
-    if not os.path.exists(settings.paths['mzdeltas_bin_path']):
-        raise ValueError("Can not find mzDeltas binary at %s" %settings.paths['mzdeltas_bin_path'])
+    if not os.path.exists(settings.program_settings['mzdeltas_bin_path']):
+        raise ValueError("Can not find mzDeltas binary at %s" % settings.program_settings['mzdeltas_bin_path'])
 
-    mzdeltas_binary = settings.paths['mzdeltas_bin_path'] + '/mzDeltas'
+    mzdeltas_binary = settings.program_settings['mzdeltas_bin_path'] + '/mzDeltas'
     # On Mac os x, executable is located inside the peakdetector.app folder
     if platform.system() == "Darwin" and not os.path.exists(mzdeltas_binary):
-        mzdeltas_binary = settings.paths['bin_path'] + "/mzDeltas.app/Contents/MacOS/mzDeltas"
+        mzdeltas_binary = settings.program_settings['bin_path'] + "/mzDeltas.app/Contents/MacOS/mzDeltas"
 
-    output_file = settings.paths['output_folder'] + "/mzdeltas.out"
+    output_file = settings.program_settings['output_folder'] + "/mzdeltas.out"
 
     cmd_str = "{mzdeltas_binary} --minintensity {minintensity} \
                                  --max_mzs {max_mzs} --ppm {ppm} \
@@ -494,7 +488,7 @@ def run_mzdeltas(module_dict, settings):
 
 def create_success_file(pipeline_status_dict, settings):
     
-    success_file = settings.paths['output_folder'] + "/success.txt"
+    success_file = settings.program_settings['output_folder'] + "/success.txt"
     start_time = settings.run['start_time']
     end_time = datetime.now()
     

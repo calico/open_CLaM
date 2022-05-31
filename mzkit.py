@@ -35,7 +35,7 @@ if __name__ == '__main__':
     config.update_config(args.wild_cards)
 
     # save config
-    config.write_config(os.path.join(settings.paths['output_folder'], 'config.json'))
+    config.write_config(os.path.join(settings.run['output_folder'], 'config.json'))
     
     # print a summary of the pipeline pipes (steps)
     config.print_pipeline_summary()
