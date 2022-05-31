@@ -543,13 +543,7 @@ def create_success_file(pipeline_status_dict, settings):
     print("=================================================\n")
 
 
-def initialize_output_folder(args):
-    output_folder = args.output_folder
-
-    if not args.output_folder:
-        time_str = strftime("%y%m%d%H%m%s", gmtime())
-        # add time stamp to report name
-        output_folder = "/tmp/" + "report_" + time_str
+def initialize_output_folder(output_folder):
 
     if not os.path.exists(output_folder):
         print("# Creating " + output_folder)

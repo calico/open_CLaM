@@ -330,40 +330,39 @@ class MzkitSettings(object):
             "+start_time": "datetime",
             "+verbose": "boolean"
             }
-        
-        required_args = [
-            "data_folder",
-            "output_folder",
-            "configfile"
-            ]
-        
+
+        data_folder = args.data_folder
+        configfile = args.configfile
+        output_folder = args.output_folder
+
+        if not os.path.exists(data_folder):
+            print("args.data_folder does not exist: Falling back to open_CLaM example data_folder.")
+            data_folder = os.abspath("./open_CLaM_example/example_data")
+
+        if not os.path.exists(configfile):
+            print("args.configfile does not exist: Falling back to open_CLaM example configfile.")
+            configfile = os.abspath("./open_CLaM_example/example_config.json")
+
+        if output_folder is None:
+            print("args.output_folder not provided: Falling back to open_CLaM example output folder.")
+            output_folder = os.abspath("./open_CLaM_example/example_output")
+
         settings_program_validator = valideer.parse(settings_program_schema)
         settings_run_validator = valideer.parse(settings_run_schema)
         
         # test args formatting
         if not type(args) == argparse.Namespace:
-            raise ValueError('args is of type %s rather than argparse.Namespace' %type(args))
-        
-        args_dict = vars(args)
-        if not set(required_args).issubset(set(list(args_dict.keys()))):
-            raise ValueError("args are misconfigured")
-        
-        # setup data files        
-        if not os.path.exists(args.data_folder):
-            raise ValueError('data_folder path %s does not exist' % args.data_folder)
-
-        if not os.path.exists(args.configfile):
-            raise ValueError('configfile path %s does not exist' % args.configfile)
+            raise ValueError('args is of type %s rather than argparse.Namespace' % type(args))
         
         # sample files
         project_files = get_mz_files_list(args.data_folder)
         if len(project_files) == 0:
             raise ValueError("Didn't find any spectra files") 
         
-        if any([str(x).endswith(".mzrollDB") for x in os.listdir(args.data_folder)]):
+        if any([str(x).endswith(".mzrollDB") for x in os.listdir(data_folder)]):
             raise ValueError("mzkit can't run on a data folder containing a .mzrollDB file") 
          
-        output_folder = initialize_output_folder(args)
+        output_folder = initialize_output_folder(output_folder)
 
         # open_CLaM program paths (executables, script directories, driver scripts)
         open_CLaM_path = os.path.abspath(".")
@@ -385,9 +384,9 @@ class MzkitSettings(object):
             }
         
         settings_run = {
-            "data_folder": args.data_folder,
+            "data_folder": data_folder,
             "output_folder": output_folder,
-            "configfile": args.configfile,
+            "configfile": configfile,
             "start_time": datetime.now(),
             "verbose": args.verbose
             }
