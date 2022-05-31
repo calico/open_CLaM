@@ -221,7 +221,7 @@ def run_module(module, module_dict, pipe, settings):
 
 def call_R_module(module, module_dict, settings):
 
-    output_path_argument = "output_folder={}".format(settings.program_settings['output_folder'])
+    output_path_argument = "output_folder={}".format(settings.run['output_folder'])
     function_call_argument = "rwrapper={}".format(module)
     r_scripts_path_argument = "r_scripts_path={}".format(settings.program_settings['r_scripts_path'])
 
@@ -230,8 +230,10 @@ def call_R_module(module, module_dict, settings):
         aux_r_params.append(par + "=" + str(val))
     #print(aux_r_params)
 
-    cmd = [settings.program_settings['RCMD'], settings.program_settings['r_mzkit_path'],
-           output_path_argument, function_call_argument,
+    cmd = [settings.program_settings['RCMD'],
+           settings.program_settings['r_mzkit_path'],
+           output_path_argument,
+           function_call_argument,
            r_scripts_path_argument] + aux_r_params
            
     p = subprocess.Popen(" ".join(cmd),
@@ -281,7 +283,7 @@ def run_peakdetector(peakdetector_input, module_dict, settings):
 
     # On Mac os x, executable is located inside the peakdetector.app folder
     if platform.system() == "Darwin" and not os.path.exists(peakdetector_binary):
-        peakdetector_binary = peakdetector_binary + "/peakdetector.app/Contents/MacOS/peakdetector"
+        peakdetector_binary = settings.program_settings['peakdetector_bin_path'] + "/peakdetector.app/Contents/MacOS/peakdetector"
 
     if not os.path.exists(peakdetector_binary):
         raise ValueError('Cannot find peakdetector binary: %s' %peakdetector_binary)
@@ -370,7 +372,7 @@ def run_peakdetector(peakdetector_input, module_dict, settings):
                                               ms2=module_dict['parameters']['ms2'],
                                               minintensity=module_dict['parameters']['minintensity'],
                                               peakdetector_methods_path=settings.program_settings['peakdetector_methods_path'],
-                                              reports_folder=settings.program_settings['output_folder'],
+                                              reports_folder=settings.run['output_folder'],
                                               align_samples=align_samples_flag,
                                               mzSlice_rtStepSize=rtStepSize,
                                               mzSlice_precursorPPM=precursorPPM,

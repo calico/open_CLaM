@@ -318,7 +318,8 @@ class MzkitSettings(object):
             "+peakdetector_methods_path": "string",
             "+mzdeltas_bin_path": "string",
             "+RCMD": "string",
-            "r_scripts_path": "string"
+            "r_scripts_path": "string",
+            "r_mzkit_path": "string"
             }
 
         # run-specific parameters (changes every run)
@@ -364,12 +365,13 @@ class MzkitSettings(object):
          
         output_folder = initialize_output_folder(args)
 
-        # open_CLaM program paths (executables, script directories)
+        # open_CLaM program paths (executables, script directories, driver scripts)
         open_CLaM_path = os.path.abspath(".")
         peakdetector_bin_path = os.path.abspath("./maven/src/maven/bin")
-        peakdetector_methods_path = os.path.abspath("./maven/src/maven_core/bin/methods/default.model")
+        peakdetector_methods_path = os.path.abspath("./maven/src/maven_core/bin/methods")
         mzdeltas_bin_path = os.path.abspath("./maven/src/maven_core/bin")
         r_scripts_path = os.path.abspath(".")
+        r_mzkit_path = os.path.abspath("./mzkit.R")
 
         # setup code paths
         settings_program = {
@@ -378,7 +380,8 @@ class MzkitSettings(object):
             "peakdetector_methods_path": peakdetector_methods_path,
             "mzdeltas_bin_path": mzdeltas_bin_path,
             "RCMD": "Rscript",
-            "r_scripts_path": r_scripts_path
+            "r_scripts_path": r_scripts_path,
+            "r_mzkit_path": r_mzkit_path
             }
         
         settings_run = {
