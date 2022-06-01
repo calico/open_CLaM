@@ -438,7 +438,7 @@ def run_mzdeltas(module_dict, settings):
     mzdeltas_binary = settings.program_settings['mzdeltas_bin_path'] + '/mzDeltas'
     # On Mac os x, executable is located inside the peakdetector.app folder
     if platform.system() == "Darwin" and not os.path.exists(mzdeltas_binary):
-        mzdeltas_binary = settings.program_settings['bin_path'] + "/mzDeltas.app/Contents/MacOS/mzDeltas"
+        mzdeltas_binary = settings.program_settings['mzdeltas_bin_path'] + "/mzDeltas.app/Contents/MacOS/mzDeltas"
 
     output_file = settings.program_settings['output_folder'] + "/mzdeltas.out"
 
