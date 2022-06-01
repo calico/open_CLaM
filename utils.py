@@ -440,7 +440,7 @@ def run_mzdeltas(module_dict, settings):
     if platform.system() == "Darwin" and not os.path.exists(mzdeltas_binary):
         mzdeltas_binary = settings.program_settings['mzdeltas_bin_path'] + "/mzDeltas.app/Contents/MacOS/mzDeltas"
 
-    output_file = settings.program_settings['output_folder'] + "/mzdeltas.out"
+    output_file = settings.run['output_folder'] + "/mzdeltas.out"
 
     cmd_str = "{mzdeltas_binary} --minintensity {minintensity} \
                                  --max_mzs {max_mzs} --ppm {ppm} \
@@ -454,7 +454,7 @@ def run_mzdeltas(module_dict, settings):
                                            historylen=module_dict['parameters']['historylen'],
                                            outputfile=output_file)
 
-    data_folder = settings.args.data_folder
+    data_folder = settings.run['data_folder']
     if not data_folder.endswith("/"):
         data_folder = data_folder + "/"
 
