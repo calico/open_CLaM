@@ -79,7 +79,10 @@ application window.
 3. Select **Import New Library** from the library dialog that appears.
 ![](images/3_import_new_library.png)
 
-4. Select **mzkit-all_single_energy.msp** from the file browser.
+4. Select **mzkit-all_single_energy.msp** from the file browser. This file is located at
+```
+<open_CLaM_parent_dir>/open_CLaM/open_CLaM_example/example_output/libraries/mzkit-all_single_energy.msp
+```
 ![](images/4_select_file.png)
 
 Once the library is loaded, close the library dialog.
