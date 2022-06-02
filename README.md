@@ -82,6 +82,23 @@ install.packages("<open_CLaM_parent_dir>/open_CLaM/clamdb", repos=NULL, type ="s
 install.packages("<open_CLaM_parent_dir>/open_CLaM/clamqc", repos=NULL, type ="source")
 install.packages("<open_CLaM_parent_dir>/open_CLaM/quahog", repos=NULL, type ="source")
 ```
+4. **python packages**
+
+`mzkit` relies on a few external python packages:
+
+```
+valideer
+pytz
+```
+
+These may be installed from the terminal, e.g.
+```
+python -m pip install valideer
+python -m pip install pytz
+```
+
+At this time, valideer is available only up to `python3.9`.
+Mzkit requires `python3`.  We recommend using `python3.9` for optimal performance.
 
 # Pipeline execution
 The pipeline should be executed using the associated python scripts included
