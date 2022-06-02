@@ -37,15 +37,15 @@ Installing and configuring `qmake` and `llvm` is the most difficult part of this
 Check out the [Qt website](https://www.qt.io/download) and [llvm website](https://llvm.org/) for helpful tips.
 Once you have these installed, you may carry out the following commands:
 ```
-cd <open_CLaM_dir>/open_CLaM/maven
+cd <open_CLaM_parent_dir>/open_CLaM/maven
 qmake -r build_no_gui.pro
 make -Bj16
 ```
-Where `<open_CLaM_dir>` is the directory where you have cloned the `open_CLaM` repository on your computer.
+Where `<open_CLaM_parent_dir>` is the directory where you will clone the `open_CLaM` repository on your computer.
 If this works properly, you should find the following two executable files:
 ```
-<open_CLaM_dir>/maven/src/maven/bin/peakdetector
-<open_CLaM_dir>/maven/src/maven_core/bin/mzDeltas
+<open_CLaM_parent_dir>/open_CLaM/maven/src/maven/bin/peakdetector
+<open_CLaM_parent_dir>/open_CLaM/maven/src/maven_core/bin/mzDeltas
 ```
 Which are used by the `open_ClaM` pipeline.
 
@@ -61,7 +61,7 @@ should be installed first.
 R packages can be installed by either (1) following the installation instructions described
 in each repository, running (2) `R CMD INSTALL` for each package, e.g.
 ```
-cd <open_CLaM_dir>/open_CLaM
+cd <open_CLaM_parent_dir>/open_CLaM
 R CMD INSTALL clamr
 R CMD INSTALL clamdb
 R CMD INSTALL clamqc
@@ -69,10 +69,10 @@ R CMD INSTALL quahog
 ```
 Or, (3) by building each package from source in the R studio console, e.g.
 ```
-install.packages("<open_CLaM_dir>/clamr", repos=NULL, type ="source")
-install.packages("<open_CLaM_dir>/clamdb", repos=NULL, type ="source")
-install.packages("<open_CLaM_dir>/clamqc", repos=NULL, type ="source")
-install.packages("<open_CLaM_dir>/quahog", repos=NULL, type ="source")
+install.packages("<open_CLaM_parent_dir>/open_CLaM/clamr", repos=NULL, type ="source")
+install.packages("<open_CLaM_parent_dir>/open_CLaM/clamdb", repos=NULL, type ="source")
+install.packages("<open_CLaM_parent_dir>/open_CLaM/clamqc", repos=NULL, type ="source")
+install.packages("<open_CLaM_parent_dir>/open_CLaM/quahog", repos=NULL, type ="source")
 ```
 
 # Pipeline execution
