@@ -1,0 +1,1 @@
+All generated output from the default example will appear in this folder.
