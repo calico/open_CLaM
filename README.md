@@ -20,7 +20,15 @@ To do this, you may need to setup a github account, and/or create ssh keys.
 Please follow instructions available elsewhere to help you in cloning this repository
 to your computer.
 
-Here is the command to clone this `open_CLaM` and all submodules to your computer:
+First, choose a location on your computer where you will store the `open_CLaM` repository.
+Let's call this file location <open_CLaM_parent_dir>.
+
+Navigate to this location in a terminal / command line:
+```
+cd <open_CLaM_parent_dir>
+```
+
+In the same terminal window, clone this repository and al submodules onto your computer:
 
 ```
 git clone --recurse-submodules -j8 https://github.com/calico/open_CLaM.git
