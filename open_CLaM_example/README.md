@@ -62,9 +62,15 @@ When you open a `peakdetector.mzrollDB` file in `MAVEN`, it will ask you about
 associating a spectral library to the file.  You should follow the library dialog
 to import the library generated in `libraries/mzkit-all_single_energy.msp`.
 
-step-by-step guide:
+# Browing example_output: step-by-step guide
 
-1. select `peakdetector.mzrollDB` file from `example_output` folder.
+The results may be examined using the desktop application program
+[MAVEN](https://github.com/eugenemel/maven/releases/latest).
+
+Open MAVEN, and click on the **Open** button in the top left-hand corner of the
+application window. 
+
+1. In the file chooser that appears, select `peakdetector.mzrollDB` file from `example_output` folder.
 ![](images/1_open_output.png)
 
 2. In the loading dialog that appears, select **Launch Library Dialog**
