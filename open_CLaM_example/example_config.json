@@ -1,0 +1,155 @@
+{
+  "pipeline": {
+    "peakdetector": {
+      "use": true,
+      "required": true,
+      "critical": true,
+      "modules": ["peakdetector"]
+    },
+    "alignment": {
+      "use": true,
+      "required": false,
+      "critical": false,
+      "modules": ["pipeline_alignment", "peakdetector"]
+    },
+    "splitting": {
+      "use": false,
+      "required": false,
+      "critical": false,
+      "modules": ["pipeline_aggregate_split_peaks"]
+    },
+    "coelution": {
+      "use": true,
+      "required": false,
+      "critical": false,
+      "modules": ["mz_deltas", "pipeline_coelution_detection", "pipeline_coelution_labeling"]
+    },
+    "search": {
+      "use": true,
+      "required": false,
+      "critical": false,
+      "modules": ["pipeline_standard_search"]
+    },
+    "qc": {
+      "use": false,
+      "required": false,
+      "critical": false,
+      "modules": ["pipeline_qc"]
+    },
+    "eda": {
+      "use": false,
+      "required": false,
+      "critical": false,
+      "modules": ["pipeline_eda"]
+    }
+  },
+  "globals": {
+    "mzroll_db_file": "peakdetector.mzrollDB",
+    "methodId": "M002A",
+    "chemical_class": "polar",
+    "MS1tol": "10ppm",
+    "MS2tol": "20ppm",
+    "mode": "positive",
+    "chromatographic_method": "'MS-Chrom-004-A ZIC-pHILIC'",
+    "collision_energies": "20,40,80",
+    "dbname": "open_CLaM_example/example_databases/example_standards_data.rds",
+    "standard_db_user": "db_user_name",
+    "standard_db_passwd_key": "db_password",
+    "standard_db_host_key": "host_IP_address"
+  },
+  "modules": {
+    "mz_deltas": {
+      "language": "bin",
+      "parameters": {
+        "historylen": 10,
+        "max_mzs": 50,
+        "mincor": 0.9,
+        "minintensity": 100000,
+        "ppm": 2
+      }
+    },
+    "peakdetector": {
+      "language": "bin",
+      "parameters": {
+        "minintensity": 10000,
+        "ms2": -2,
+        "alignSamples": 0,
+        "alignmentFile": "",
+        "rtStepSize": 100,
+        "precursorPPM": 5,
+        "eic_smoothingWindow": 5,
+        "baseline_smoothingWindow": 5,
+        "baseline_dropTopX": 60,
+        "grouping_maxRtWindow": 0.25,
+        "minGoodGroupCount": 1,
+        "minQuality": 0.5,
+        "minSignalBaseLineRatio": 1.1,
+        "mergeOverlap": 0.8,
+        "lipidMspFile": "",
+        "lipidSearchParameters": ""
+      }
+    },
+    "peakdetector_lipid_search": {
+      "language": "bin",
+      "parameters": {
+        "minintensity": 10000,
+        "ms2": -2,
+        "alignSamples": 0,
+        "alignmentFile": "",
+        "rtStepSize": 100,
+        "precursorPPM": 5,
+        "eic_smoothingWindow": 5,
+        "baseline_smoothingWindow": 5,
+        "baseline_dropTopX": 60,
+        "grouping_maxRtWindow": 0.25,
+        "minGoodGroupCount": 1,
+        "minQuality": 0.5,
+        "minSignalBaseLineRatio": 1.1,
+        "mergeOverlap": 0.8,
+        "lipidMspFile": "",
+        "lipidSearchParameters": ""
+      }
+    },
+    "pipeline_alignment": {
+      "language": "R",
+      "parameters": {
+        "cosine_cutoff": 0.95,
+        "spline_ridge_penalty": 400
+      }
+    },
+    "pipeline_aggregate_split_peaks": {
+      "language": "R",
+      "parameters": {}
+    },
+    "pipeline_coelution_detection": {
+      "language": "R",
+      "parameters": {
+        "adduct_file": "mzdeltas.out",
+        "mzroll_db_file": "peakdetector.mzrollDB"
+      }
+    },
+    "pipeline_coelution_labeling": {
+      "language": "R",
+      "parameters": {}
+    },
+    "pipeline_eda": {
+      "language": "R",
+      "parameters": {}
+    },
+    "pipeline_qc": {
+      "language": "R",
+      "parameters": {
+        "referenceSample": "X0216_M013B_Blank_p01A01_001_1.mzML"
+      }
+    },
+    "pipeline_standard_search": {
+      "language": "R",
+      "parameters": {
+        "MS1sd": 1e-06,
+        "RTsd": 0.5,
+        "matching_model": "polar_forest.Rds",
+        "exclude_isotopes": "F"
+      }
+    }
+  }
+}

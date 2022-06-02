@@ -3,3 +3,5 @@ open_CLaM_example/.DS_Store
 .idea/
 __pycache__/
 open_CLaM_example/example_output/
+open_CLaM_example/example_data/.DS_Store
+open_CLaM_example/example_databases/.DS_Store
