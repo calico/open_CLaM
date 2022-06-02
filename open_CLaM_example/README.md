@@ -35,7 +35,10 @@ for those interested in creating their own MySQL database.
 
 Schema for search database:
 
-Schema for standards database:
+![](images/standards_db.png)
+Schema for systematic compounds database:
+
+![](images/systematic_db.png)
 
 # example_config
 
@@ -54,4 +57,24 @@ When you open a `peakdetector.mzrollDB` file in `MAVEN`, it will ask you about
 associating a spectral library to the file.  You should follow the library dialog
 to import the library generated in `libraries/mzkit-all_single_energy.msp`.
 
-TODO: screenshot of importing library
+step-by-step guide:
+
+1. select `peakdetector.mzrollDB` file from `example_output` folder.
+![](images/1_open_output.png)
+
+2. In the loading dialog that appears, select **Launch Library Dialog**
+![](images/2_loading_dialog.png)
+
+3. Select **Import New Library** from the library dialog that appears.
+![](images/3_import_new_library.png)
+
+4. Select **mzkit-all_single_energy.msp** from the file browser.
+![](images/4_select_file.png)
+
+Once the library is loaded, close the library dialog.
+
+5. In the loading dialog, click **Use Selected Library**
+![](images/5_use_selected_file.png)
+
+6. Review your results using the [MAVEN GUI](https://github.com/eugenemel/maven/releases/latest)
+![](images/6_example_maven_output.png)
