@@ -2,6 +2,11 @@
 
 The `open_CLaM` pipeline uses a series of C++ executables and R and python scripts.
 
+To run this example, first ensure you are in the top-level `open_CLaM` directory, e.g.
+```
+cd <open_CLaM_parent_dir>/open_CLaM
+```
+
 The pipeline should be executed with three arguments:
 
 `python mzkit.py -c <config_file> -d <data_folder> -o <output_folder>`
@@ -29,8 +34,8 @@ containing elution and spectral information collected from chemical standards.
 
 However, this same information may also be provided as a series of tables in `.rds` format.
 
-In this example, we include abbreviated databases as `.rds` files.  These `.rds` files,
-along with schema diagrams, may be used to reconstruct the structure of the databases,
+In this example, we include an abbreviated databases as an `.rds` file.  This `.rds` files,
+along with schema diagrams below, may be used to reconstruct the structure of the databases,
 for those interested in creating their own MySQL database.
 
 Schema for search database:
