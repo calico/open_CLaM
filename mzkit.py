@@ -24,8 +24,8 @@ if __name__ == '__main__':
     
     # read and process config file
     try:
-        config_path = args.configfile
-        config = MzkitConfig(args.configfile)
+        config_path = settings.run['configfile']
+        config = MzkitConfig(config_path)
     except Exception as e:
         print(e)
         print("Configuration file missing or unreadable - Exiting program.")

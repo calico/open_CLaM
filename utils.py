@@ -56,7 +56,7 @@ def mzkit_commandline_parser():
     parser.add_argument('-d', '--data_folder',
                         help='data folder',
                         dest='data_folder',
-                        required=True)
+                        default=None)
 
     parser.add_argument('-c', '--config',
                         help='configuration file',
@@ -264,7 +264,7 @@ def call_bin_module(module, module_dict, pipe, settings):
     
     if module == "peakdetector" or module == "peakdetector_mzkitchen_search":
         if pipe == "peakdetector":
-            run_peakdetector(settings.args.data_folder, module_dict, settings)  # throws PipelineFailedException
+            run_peakdetector(settings.run['data_folder'], module_dict, settings)  # throws PipelineFailedException
         elif pipe == "alignment":
             run_peakdetector(settings.mzrolldb_file, module_dict, settings)  # throws PipelineFailedException
         else:

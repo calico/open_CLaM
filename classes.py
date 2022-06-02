@@ -335,17 +335,17 @@ class MzkitSettings(object):
         configfile = args.configfile
         output_folder = args.output_folder
 
-        if not os.path.exists(data_folder):
-            print("args.data_folder does not exist: Falling back to open_CLaM example data_folder.")
-            data_folder = os.abspath("./open_CLaM_example/example_data")
+        if data_folder is None:
+            print("args.data_folder not provided: Falling back to open_CLaM example data_folder.")
+            data_folder = os.path.abspath("./open_CLaM_example/example_data")
 
-        if not os.path.exists(configfile):
-            print("args.configfile does not exist: Falling back to open_CLaM example configfile.")
-            configfile = os.abspath("./open_CLaM_example/example_config.json")
+        if configfile is None:
+            print("args.configfile not provided: Falling back to open_CLaM example configfile.")
+            configfile = os.path.abspath("./open_CLaM_example/example_config.json")
 
         if output_folder is None:
             print("args.output_folder not provided: Falling back to open_CLaM example output folder.")
-            output_folder = os.abspath("./open_CLaM_example/example_output")
+            output_folder = os.path.abspath("./open_CLaM_example/example_output")
 
         settings_program_validator = valideer.parse(settings_program_schema)
         settings_run_validator = valideer.parse(settings_run_schema)
@@ -355,7 +355,7 @@ class MzkitSettings(object):
             raise ValueError('args is of type %s rather than argparse.Namespace' % type(args))
         
         # sample files
-        project_files = get_mz_files_list(args.data_folder)
+        project_files = get_mz_files_list(data_folder)
         if len(project_files) == 0:
             raise ValueError("Didn't find any spectra files") 
         
