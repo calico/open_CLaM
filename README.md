@@ -21,14 +21,14 @@ Please follow instructions available elsewhere to help you in cloning this repos
 to your computer.
 
 First, choose a location on your computer where you will store the `open_CLaM` repository.
-Let's call this file location <open_CLaM_parent_dir>.
+Let's call this file location `<open_CLaM_parent_dir>`.
 
 Navigate to this location in a terminal / command line:
 ```
 cd <open_CLaM_parent_dir>
 ```
 
-In the same terminal window, clone this repository and al submodules onto your computer:
+In the same terminal window, clone this repository and all submodules onto your computer:
 
 ```
 git clone --recurse-submodules -j8 https://github.com/calico/open_CLaM.git
@@ -39,11 +39,27 @@ git clone --recurse-submodules -j8 https://github.com/calico/open_CLaM.git
 `open_CLaM` depends on several executables written in C++ using the Qt framework.
 These may be built [from source](https://github.com/eugenemel/maven).  If you have
 successfully cloned this entire repository and all subrepositories, the source files necessary to create these executables will be downloaded to your computer.
-In order to build these executables, you will need to download and install `Qt`, `llvm`, and `boost`.
+
+
+In order to build these executables, you will need, at a minimum, `Qt` and `boost`.
+For multithreaded peak picking and grouping, you should also download `llvm`.
+
+
 Specifically, this project calls for the `qmake` tool within `Qt`.
-Installing and configuring `qmake` and `llvm` is the most difficult part of this installation.
-Check out the [Qt website](https://www.qt.io/download) and [llvm website](https://llvm.org/) for helpful tips.
-Once you have these installed, you may carry out the following commands:
+Installing and configuring `qmake` is the most difficult part of this installation.
+Check out the [Qt website](https://www.qt.io/download) for helpful tips.
+
+
+If you are using homebrew, you can install qt and boost via
+```
+brew install qt
+brew install boost
+brew install llvm
+```
+
+After you have installed `qt`, pleas be sure to add `qmake` to your system path.
+
+Once you have `qmake` installed, you may carry out the following commands:
 ```
 cd <open_CLaM_parent_dir>/open_CLaM/maven
 qmake -r build_no_gui.pro
